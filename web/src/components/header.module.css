@@ -31,6 +31,7 @@
     @media (hover: hover) {
       @nest &:hover {
         color: var(--color-accent);
+        text-decoration: underline;
       }
     }
   }
@@ -73,6 +74,7 @@
   @media (hover: hover) {
     @nest & ul li a:hover {
       color: var(--color-accent);
+      text-decoration: underline;
     }
   }
 

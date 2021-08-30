@@ -51,7 +51,7 @@
 .publishedAt {
   composes: small from './typography.module.css';
   margin: 1.5rem 0 3rem;
-  color: var(--color-gray);
+  color: #f1efd1;
 }
 
 .categories {
