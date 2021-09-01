@@ -6,15 +6,107 @@ import { imageUrlFor } from "../lib/image-url";
 import BlockContent from "./block-content";
 import Container from "./container";
 import RoleList from "./role-list";
+import styled from "styled-components"
 
-import * as styles from "./project.module.css";
+const MainImage = styled.div`
+position: relative;
+background: #eee;
+padding-bottom: calc(9 / 16 * 100%);
+
+  img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  object-fit: cover;
+  }
+`
+
+const GridProject = styled.div`
+display: grid;
+grid-template-columns: 1fr;
+grid-column-gap: 2em;
+
+  @media (--media-min-medium) {
+  grid-template-columns: 3fr 1fr;
+  }
+`
+
+const MainContent = styled.div`
+a {
+color: var(--color-accent);
+
+  @media (hover: hover) {
+  &:hover {
+  color: inherit;
+  }}
+}
+`
+
+const PulishedAt = styled.div`
+margin: 1.5rem 0 3rem;
+color: #f1efd1;
+`
+
+const Categories = styled.div`
+border-top: 1px solid var(--color-very-light-gray);
+margin: 2rem 0 3rem;
+
+  ul {
+  list-style: none;
+  margin: 0.75rem 0;
+  padding: 0;
+  }
+
+  ul li {
+  padding: 0.25rem 0;
+  }
+`
+
+const CategoriesHeadline = styled.h3`
+margin: 0.5rem 0 0;
+`
+
+const RelatedProjects = styled.div`
+border-top: 1px solid var(--color-very-light-gray);
+margin: 2rem 0 3rem;
+
+  ul {
+  list-style: none;
+  margin: 0.75rem 0;
+  padding: 0;
+  }
+
+  a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  }
+`
+
+const RelatedProjectsHeadline = styled.h3`
+margin: 0.5rem 0 0;
+`
+
+const Root = styled.article`
+`
+
+const Title = styled.h1`
+`
+
+const MetaContent = styled.aside`
+`
 
 function Project(props) {
   const { _rawBody, title, categories, mainImage, members, publishedAt, relatedProjects } = props;
+  console.log(publishedAt)
   return (
-    <article className={styles.root}>
+    <Root>
       {props.mainImage && mainImage.asset && (
-        <div className={styles.mainImage}>
+        <MainImage>
           <img
             src={imageUrlFor(buildImageObj(mainImage))
               .width(1200)
@@ -23,36 +115,36 @@ function Project(props) {
               .url()}
             alt={mainImage.alt}
           />
-        </div>
+        </MainImage>
       )}
       <Container>
-        <div className={styles.grid}>
-          <div className={styles.mainContent}>
-            <h1 className={styles.title}>{title}</h1>
+        <GridProject>
+          <MainContent>
+            <Title>{title}</Title>
             {_rawBody && <BlockContent blocks={_rawBody || []} />}
-          </div>
-          <aside className={styles.metaContent}>
+          </MainContent>
+          <MetaContent>
             {publishedAt && (
-              <div className={styles.publishedAt}>
+              <PulishedAt>
                 {differenceInDays(new Date(publishedAt), new Date()) > 3
                   ? distanceInWords(new Date(publishedAt), new Date())
                   : format(new Date(publishedAt), "MMMM Do YYYY")}
-              </div>
+              </PulishedAt>
             )}
             {members && members.length > 0 && <RoleList items={members} title="Project members" />}
             {categories && categories.length > 0 && (
-              <div className={styles.categories}>
-                <h3 className={styles.categoriesHeadline}>Categories</h3>
+              <Categories>
+                <CategoriesHeadline>Categories</CategoriesHeadline>
                 <ul>
                   {categories.map(category => (
                     <li key={category._id}>{category.title}</li>
                   ))}
                 </ul>
-              </div>
+              </Categories>
             )}
             {relatedProjects && relatedProjects.length > 0 && (
-              <div className={styles.relatedProjects}>
-                <h3 className={styles.relatedProjectsHeadline}>Related projects</h3>
+              <RelatedProjects>
+                <RelatedProjects>Related projects</RelatedProjects>
                 <ul>
                   {relatedProjects.map(project => (
                     <li key={`related_${project._id}`}>
@@ -64,12 +156,12 @@ function Project(props) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </RelatedProjects>
             )}
-          </aside>
-        </div>
+          </MetaContent>
+        </GridProject>
       </Container>
-    </article>
+    </Root>
   );
 }
 

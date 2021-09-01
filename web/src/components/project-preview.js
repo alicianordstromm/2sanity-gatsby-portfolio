@@ -3,14 +3,51 @@ import React from "react";
 import { cn, buildImageObj } from "../lib/helpers";
 import { imageUrlFor } from "../lib/image-url";
 import BlockText from "./block-text";
-
-import * as styles from "./project-preview.module.css";
+import styled from "styled-components"
 import { responsiveTitle3 } from "./typography.module.css";
+
+const PreviewLink = styled(Link)`
+display: block;
+color: inherit;
+text-decoration: none;
+`
+
+const ImageTitle = styled.div`
+position: relative;
+padding-bottom: 66.666%;
+background: #eee;
+
+  img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+`
+const Title = styled.h3`
+@media (hover: hover) {
+.root:hover & {
+color: var(--color-accent);
+text-decoration: underline;
+}}
+`
+
+const Excerpt = styled.div`
+p {
+  margin: 0.5em 0;
+  }
+strong {
+  font-weight: 600;
+  }
+`
+
 
 function ProjectPreview(props) {
   return (
-    <Link className={styles.root} to={`/project/${props.slug.current}`}>
-      <div className={styles.leadMediaThumb}>
+    <PreviewLink to={`/project/${props.slug.current}`}>
+      <ImageTitle>
         {props.mainImage && props.mainImage.asset && (
           <img
             src={imageUrlFor(buildImageObj(props.mainImage))
@@ -20,14 +57,14 @@ function ProjectPreview(props) {
             alt={props.mainImage.alt}
           />
         )}
-      </div>
-      <h3 className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
+      </ImageTitle>
+      <Title>{props.title}</Title>
       {props._rawExcerpt && (
-        <div className={styles.excerpt}>
-          <BlockText blocks={props._rawExcerpt} />
-        </div>
+        <Excerpt>
+        <BlockText blocks={props._rawExcerpt} />
+      </Excerpt>
       )}
-    </Link>
+    </PreviewLink>
   );
 }
 
