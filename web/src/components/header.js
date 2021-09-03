@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React from "react";
+import React, { useState } from 'react';
 import Icon from "./icon";
 import styled from "styled-components"
 import { cn } from "../lib/helpers";
@@ -66,14 +66,15 @@ color: inherit;
   
 `
 
-const ListHamburger = styled.nav`
-
+const ListHeader = styled.nav`
+@media (min-width: 768px) {
   ul {
   list-style: none;
   margin: 0;
   padding-top: 1.5em;
   padding-right: 1em;
   display: flex;
+  justify-content: flex-end;
   }
 
   ul li a {
@@ -86,17 +87,19 @@ const ListHamburger = styled.nav`
      ul li a:hover {
     text-decoration: underline;
     }
-  }
+  }}
+`
+
+const ListHamburger = styled.nav`
 
   @media (max-width: 768px) {
   position: absolute;
   background: var(--color-white);
   color: var(--color-black);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  left: 0;
   right: 0;
   top: 4.3rem;
-  width: 150px;
+  width: 170px;
   display: flex;
   
 
@@ -119,44 +122,32 @@ const ListHamburger = styled.nav`
       }
     }
   }
-
-  @media (min-width: 768px) {
-  display: block;
-
-    ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    }
-
-    ul li a {
-    padding: 0.5rem;
-    }
-  }
 `
 
-const Header = ({ onHideNav, onShowNav, showNav, siteTitle, categories }) => (
-  <RootHeader>
-    <Wrapper>
-      <LinkMainPage>
-        <Link to="/">{siteTitle}</Link>
-      </LinkMainPage>
+const Header = ({ onHideNav, onShowNav, showNav, siteTitle, categories }) => {
+  const [showMenu, setShowMenu] = useState(false)
+  return (
+    <RootHeader>
+      <Wrapper>
+        <LinkMainPage>
+          <Link to="/">{siteTitle}</Link>
+        </LinkMainPage>
 
-      <MenuButton onClick={showNav ? onHideNav : onShowNav}>
-        <Icon symbol="hamburger" />
-      </MenuButton>
-
-      <ListHamburger>
-        <ul>
-         {categories.map(c => (
-            <li>
-              <Link to="/archive/">{c.title}</Link>
-            </li>
-          ))}
-        </ul>
-      </ListHamburger>
-    </Wrapper>
-  </RootHeader>
-);
-
+        <MenuButton onClick={() => setShowMenu(!showMenu)}>
+          <Icon symbol="hamburger" />
+        </MenuButton> 
+        {showMenu && 
+         (<ListHamburger>
+            <ul>
+            {categories.map(c => (
+              <li>
+                < Link to="/archive/">{c.title}</Link>
+              </li>
+            ))}
+            </ul>
+          </ListHamburger>)}
+        </Wrapper>
+      </RootHeader>
+    );
+  };
 export default Header;
