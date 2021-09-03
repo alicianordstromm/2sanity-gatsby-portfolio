@@ -67,30 +67,41 @@ color: inherit;
 `
 
 const ListHeader = styled.nav`
-@media (min-width: 768px) {
-  ul {
-  list-style: none;
-  margin: 0;
-  padding-top: 1.5em;
-  padding-right: 1em;
-  display: flex;
-  justify-content: flex-end;
+  @media (max-width: 768px) {
+  display: none;
   }
 
-  ul li a {
+  @media (min-width: 768px) {
   display: block;
-  color: inherit;
-  text-decoration: none;
-  }
-
-  @media (hover: hover) {
-     ul li a:hover {
-    text-decoration: underline;
+  
+    ul {
+    margin: 0;
+    padding-top: 1.5em;
+    padding-right: 1em;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    list-style: none;
     }
-  }}
+
+    ul li a {
+    margin-left: 1rem;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    }
+
+    @media (hover: hover) {
+      ul li a:hover {
+      text-decoration: underline;
+      }
+    }}
 `
 
 const ListHamburger = styled.nav`
+  @media (min-width: 768px) {
+  display: none;
+  }
 
   @media (max-width: 768px) {
   position: absolute;
@@ -106,7 +117,7 @@ const ListHamburger = styled.nav`
     ul {
     padding: 1rem 0;
     flex-direction: column;
-    width: 300px;
+    list-style: none;
     }
 
     ul li a {
@@ -136,6 +147,15 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle, categories }) => {
         <MenuButton onClick={() => setShowMenu(!showMenu)}>
           <Icon symbol="hamburger" />
         </MenuButton> 
+        <ListHeader>
+            <ul>
+            {categories.map(c => (
+              <li>
+                < Link to="/archive/">{c.title}</Link>
+              </li>
+            ))}
+            </ul>
+        </ListHeader>
         {showMenu && 
          (<ListHamburger>
             <ul>
