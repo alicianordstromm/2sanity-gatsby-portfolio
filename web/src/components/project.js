@@ -10,7 +10,7 @@ import styled from "styled-components"
 
 const MainImage = styled.div`
 position: relative;
-background: #eee;
+background: #4F3F37;
 padding-bottom: calc(9 / 16 * 100%);
 
   img {
@@ -47,7 +47,7 @@ color: var(--color-accent);
 
 const PulishedAt = styled.div`
 margin: 1.5rem 0 3rem;
-color: #f1efd1;
+color: #ffffff;
 `
 
 const Categories = styled.div`
@@ -84,6 +84,11 @@ margin: 2rem 0 3rem;
   color: inherit;
   text-decoration: none;
   padding: 0.25rem 0;
+
+    @media (hover: hover) {
+    &:hover {
+    text-decoration: underline;
+    }}
   }
 `
 
@@ -131,7 +136,7 @@ function Project(props) {
                   : format(new Date(publishedAt), "MMMM Do YYYY")}
               </PulishedAt>
             )}
-            {members && members.length > 0 && <RoleList items={members} title="Project members" />}
+            {members && members.length > 0 && <RoleList items={members} title="Artist" />}
             {categories && categories.length > 0 && (
               <Categories>
                 <CategoriesHeadline>Categories</CategoriesHeadline>
@@ -144,7 +149,7 @@ function Project(props) {
             )}
             {relatedProjects && relatedProjects.length > 0 && (
               <RelatedProjects>
-                <RelatedProjects>Related projects</RelatedProjects>
+                <RelatedProjectsHeadline>Related projects</RelatedProjectsHeadline>
                 <ul>
                   {relatedProjects.map(project => (
                     <li key={`related_${project._id}`}>

@@ -28,7 +28,6 @@ text-align: right;
 
     @media (hover: hover) {
     &:hover {
-    color: var(--color-accent);
     text-decoration: underline;
     }}}
 `

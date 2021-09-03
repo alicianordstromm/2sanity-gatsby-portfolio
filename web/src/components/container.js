@@ -3,8 +3,9 @@ import styled from "styled-components"
 
 const PaddingLeftAndRightOfBothGrids = styled.div`
 box-sizing: border-box;
-max-width: 960px;
-padding: 1.5em;
+max-width: 1440px;
+padding: 3em;
+padding-top: 7em;
 margin: 0 auto;
 
   @media (--media-min-small) {

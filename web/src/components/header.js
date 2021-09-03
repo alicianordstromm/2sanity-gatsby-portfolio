@@ -8,13 +8,18 @@ import { cn } from "../lib/helpers";
 const RootHeader = styled.div`
 position: fixed;
 z-index: 100;
+width:100%;
 `
 
 const Wrapper = styled.div`
 box-sizing: border-box;
 margin: 0 auto;
 width: 100%;
-padding: 3em;
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 1.5em;
+padding-bottom: 4em;
+max-width: 1440px;
 display: flex;
 justify-content: space-between;
 
@@ -48,25 +53,27 @@ font-size: 25px;
 border: none;
 background: none;
 margin: 0;
-padding: calc(14 / 17 / 2 * 1rem);
+padding: 0.5em;
 color: inherit;
 
   svg {
   display: block;
   fill: inherit;
   }
-  @media (min-width: 768px) {
-    display: none;
+  @media (min-width: 769px) {
+  display: none;
   }
   
 `
 
 const ListHamburger = styled.nav`
-display: none;
 
   ul {
+  list-style: none;
   margin: 0;
-  padding: 0;
+  padding-top: 1.5em;
+  padding-right: 1em;
+  display: flex;
   }
 
   ul li a {
@@ -81,7 +88,7 @@ display: none;
     }
   }
 
-  @media (--media-max-small) {
+  @media (max-width: 768px) {
   position: absolute;
   background: var(--color-white);
   color: var(--color-black);
@@ -89,17 +96,31 @@ display: none;
   left: 0;
   right: 0;
   top: 4.3rem;
+  width: 150px;
+  display: flex;
+  
 
     ul {
     padding: 1rem 0;
+    flex-direction: column;
+    width: 300px;
     }
 
     ul li a {
     padding: 0.5rem 1.5rem;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+     }
+
+    @media (hover: hover) {
+      ul li a:hover {
+      text-decoration: underline;
+      }
     }
   }
 
-  @media (--media-min-small) {
+  @media (min-width: 768px) {
   display: block;
 
     ul {
@@ -114,8 +135,7 @@ display: none;
   }
 `
 
-
-const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
+const Header = ({ onHideNav, onShowNav, showNav, siteTitle, categories }) => (
   <RootHeader>
     <Wrapper>
       <LinkMainPage>
@@ -128,9 +148,11 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
 
       <ListHamburger>
         <ul>
-          <li>
-            <Link to="/archive/">Archive</Link>
-          </li>
+         {categories.map(c => (
+            <li>
+              <Link to="/archive/">{c.title}</Link>
+            </li>
+          ))}
         </ul>
       </ListHamburger>
     </Wrapper>

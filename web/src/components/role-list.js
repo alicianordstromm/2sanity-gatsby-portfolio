@@ -37,7 +37,7 @@ const ImagesMain = styled.div`
 position: relative;
 width: 3em;
 height: 3em;
-background: #eee;
+background: #4F3F37;
 border-radius: 50%;
 overflow: hidden;
 
@@ -66,7 +66,7 @@ function RoleList({ items, title }) {
                       .height(100)
                       .fit("crop")
                       .url()}
-                    alt=""
+                    alt="art"
                   />
                 )}
               </ImagesMain>

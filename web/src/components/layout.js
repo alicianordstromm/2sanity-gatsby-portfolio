@@ -18,7 +18,6 @@ border-top: 1px solid var(--color-very-light-gray);
 
   @media (hover: hover) {
     &:hover {
-    color: var(--color-accent);
     text-decoration: underline;
     }
   }
@@ -27,7 +26,7 @@ border-top: 1px solid var(--color-very-light-gray);
 
 const BottomPageWrapper = styled.div`
 box-sizing:border-box;
-max-width: 960px;
+max-width: 1440px;
 padding: 4.5em 1.5em 1.5em;
 margin: 0 auto;
 
@@ -49,9 +48,15 @@ min-height: calc(100% - 73px - 120px);
 
 
 
-const Layout = ({ children, onHideNav, onShowNav, showNav, siteTitle }) => (
+const Layout = ({ children, onHideNav, onShowNav, showNav, siteTitle, categories }) => (
   <>
-    <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} />
+    <Header 
+      siteTitle={siteTitle} 
+      onHideNav={onHideNav} 
+      onShowNav={onShowNav} 
+      showNav={showNav} 
+      categories={categories}
+      />
     <Content>{children}</Content>
     <BottomPage>
       <BottomPageWrapper>

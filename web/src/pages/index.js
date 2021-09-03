@@ -13,13 +13,19 @@ import Layout from "../containers/layout";
 
 export const query = graphql`
   query IndexPageQuery {
+      categories: allSanityCategory {
+        nodes{
+          title
+          id
+        }
+      }
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       description
       keywords
     }
     projects: allSanitySampleProject(
-      limit: 9
+      limit: 3
       sort: { fields: [publishedAt], order: DESC }
       filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
     ) {
@@ -84,7 +90,7 @@ const IndexPage = props => {
   }
 
   return (
-    <Layout>
+    <Layout categories={data.categories.nodes}>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
       <Container>
         <h1 hidden>Welcome to {site.title}</h1>

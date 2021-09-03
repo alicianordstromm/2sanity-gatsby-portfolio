@@ -6,7 +6,7 @@ import BlockText from "./block-text";
 import styled from "styled-components"
 import { responsiveTitle3 } from "./typography.module.css";
 
-const PreviewLink = styled(Link)`
+const ExcerptLink = styled(Link)`
 display: block;
 color: inherit;
 text-decoration: none;
@@ -15,7 +15,7 @@ text-decoration: none;
 const ImageTitle = styled.div`
 position: relative;
 padding-bottom: 66.666%;
-background: #eee;
+background: #4F3F37;
 
   img {
   position: absolute;
@@ -27,11 +27,14 @@ background: #eee;
   }
 `
 const Title = styled.h3`
-@media (hover: hover) {
-.root:hover & {
-color: var(--color-accent);
-text-decoration: underline;
-}}
+color: inherit;
+text-decoration: none;
+text-align: center;
+
+  @media (hover: hover) {
+  &:hover {
+  text-decoration: underline;
+  }}
 `
 
 const Excerpt = styled.div`
@@ -46,7 +49,7 @@ strong {
 
 function ProjectPreview(props) {
   return (
-    <PreviewLink to={`/project/${props.slug.current}`}>
+    <ExcerptLink to={`/project/${props.slug.current}`}>
       <ImageTitle>
         {props.mainImage && props.mainImage.asset && (
           <img
@@ -60,11 +63,11 @@ function ProjectPreview(props) {
       </ImageTitle>
       <Title>{props.title}</Title>
       {props._rawExcerpt && (
-        <Excerpt>
+      <Excerpt>
         <BlockText blocks={props._rawExcerpt} />
       </Excerpt>
       )}
-    </PreviewLink>
+    </ExcerptLink>
   );
 }
 
