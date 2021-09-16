@@ -4,24 +4,50 @@ import { Link } from "gatsby";
 import { buildImageObj } from "../lib/helpers";
 import { imageUrlFor } from "../lib/image-url";
 import BlockContent from "./block-content";
-import Container from "./container";
 import RoleList from "./role-list";
 import styled from "styled-components"
+import Layout from "../containers/layout";
 
 const MainImage = styled.div`
-position: relative;
-background: #4F3F37;
-padding-bottom: calc(9 / 16 * 100%);
+  display:flex;
+  width: 50%;
 
   img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   vertical-align: top;
   object-fit: cover;
   }
+
+  @media (max-width: 768px) {
+  display: block;
+  width: 100%;
+  }
+`
+const FlexBox = styled.div`
+  display: flex;
+  padding-top: 10em;
+  padding-left: 4em;
+  padding-right: 4em;
+
+  @media (max-width: 768px) {
+  display: block;
+  }
+`
+
+const TextContainer = styled.div`
+  display: block;
+  box-sizing: border-box;
+  width: 50%;
+  padding-left: 4em;
+  margin: 0 auto;
+
+@media (max-width: 768px) {
+  width: 100%;
+  padding-top: 2em; 
+  padding-left: 0;
+  }
+
 `
 
 const GridProject = styled.div`
@@ -45,64 +71,15 @@ color: var(--color-accent);
 }
 `
 
-const PulishedAt = styled.div`
-margin: 1.5rem 0 3rem;
-color: #ffffff;
-`
-
-const Categories = styled.div`
-border-top: 1px solid var(--color-very-light-gray);
-margin: 2rem 0 3rem;
-
-  ul {
-  list-style: none;
-  margin: 0.75rem 0;
-  padding: 0;
-  }
-
-  ul li {
-  padding: 0.25rem 0;
-  }
-`
-
-const CategoriesHeadline = styled.h3`
-margin: 0.5rem 0 0;
-`
-
-const RelatedProjects = styled.div`
-border-top: 1px solid var(--color-very-light-gray);
-margin: 2rem 0 3rem;
-
-  ul {
-  list-style: none;
-  margin: 0.75rem 0;
-  padding: 0;
-  }
-
-  a {
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  padding: 0.25rem 0;
-
-    @media (hover: hover) {
-    &:hover {
-    text-decoration: underline;
-    }}
-  }
-`
-
-const RelatedProjectsHeadline = styled.h3`
-margin: 0.5rem 0 0;
-`
-
 const Root = styled.article`
 `
 
 const Title = styled.h1`
+font-size: 30pt;
+padding-bottom: 20px;
 `
 
-const MetaContent = styled.aside`
+const MetaContent = styled.div`
 `
 
 function Project(props) {
@@ -110,62 +87,28 @@ function Project(props) {
   console.log(publishedAt)
   return (
     <Root>
+      <FlexBox>
       {props.mainImage && mainImage.asset && (
         <MainImage>
           <img
             src={imageUrlFor(buildImageObj(mainImage))
-              .width(1200)
-              .height(Math.floor((9 / 16) * 1200))
-              .fit("crop")
               .url()}
             alt={mainImage.alt}
           />
         </MainImage>
       )}
-      <Container>
+      <TextContainer>
         <GridProject>
           <MainContent>
             <Title>{title}</Title>
             {_rawBody && <BlockContent blocks={_rawBody || []} />}
           </MainContent>
           <MetaContent>
-            {publishedAt && (
-              <PulishedAt>
-                {differenceInDays(new Date(publishedAt), new Date()) > 3
-                  ? distanceInWords(new Date(publishedAt), new Date())
-                  : format(new Date(publishedAt), "MMMM Do YYYY")}
-              </PulishedAt>
-            )}
             {members && members.length > 0 && <RoleList items={members} title="Artist" />}
-            {categories && categories.length > 0 && (
-              <Categories>
-                <CategoriesHeadline>Categories</CategoriesHeadline>
-                <ul>
-                  {categories.map(category => (
-                    <li key={category._id}>{category.title}</li>
-                  ))}
-                </ul>
-              </Categories>
-            )}
-            {relatedProjects && relatedProjects.length > 0 && (
-              <RelatedProjects>
-                <RelatedProjectsHeadline>Related projects</RelatedProjectsHeadline>
-                <ul>
-                  {relatedProjects.map(project => (
-                    <li key={`related_${project._id}`}>
-                      {project.slug ? (
-                        <Link to={`/project/${project.slug.current}`}>{project.title}</Link>
-                      ) : (
-                        <span>{project.title}</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </RelatedProjects>
-            )}
           </MetaContent>
         </GridProject>
-      </Container>
+      </TextContainer>
+      </FlexBox>    
     </Root>
   );
 }

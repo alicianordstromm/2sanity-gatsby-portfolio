@@ -2,7 +2,7 @@ import React from "react";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getGatsbyImageData } from "gatsby-source-sanity";
 import clientConfig from "../../client-config";
-import styled from "styled-components"
+import styled from "styled-components";
 
 export function Figure({ node }) {
   if (!node.asset) {

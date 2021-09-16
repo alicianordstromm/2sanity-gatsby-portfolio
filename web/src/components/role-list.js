@@ -2,7 +2,7 @@ import React from "react";
 import { buildImageObj } from "../lib/helpers";
 import { imageUrlFor } from "../lib/image-url";
 import { ucfirst } from "../lib/string-utils";
-import styled from "styled-components"
+import styled from "styled-components";
 
 const RootBody = styled.div`
 margin: 2rem 0 3rem;
@@ -37,7 +37,7 @@ const ImagesMain = styled.div`
 position: relative;
 width: 3em;
 height: 3em;
-background: #4F3F37;
+background: rgb(64, 58, 58);
 border-radius: 50%;
 overflow: hidden;
 

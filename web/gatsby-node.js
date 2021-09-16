@@ -20,12 +20,20 @@ async function createProjectPages (graphql, actions) {
           }
         }
       }
+      allSanityCategory {
+        nodes{
+          title
+          id
+          }
+        }
     }
   `)
 
   if (result.errors) throw result.errors
 
   const projectEdges = (result.data.allSanitySampleProject || {}).edges || []
+
+  const categoryEdges = (result.data.allSanityCategory.nodes || [])
 
   projectEdges
     .filter(edge => !isFuture(edge.node.publishedAt))
@@ -38,6 +46,17 @@ async function createProjectPages (graphql, actions) {
         path,
         component: require.resolve('./src/templates/project.js'),
         context: {id}
+      })
+    })
+
+  categoryEdges
+    .forEach(edge => {
+      const path = `/${edge.title}/`
+
+      createPage({
+        path,
+        component: require.resolve('./src/templates/category.js'),
+        context: {edge}
       })
     })
 }

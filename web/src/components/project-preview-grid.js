@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import ProjectPreview from "./project-preview";
-import styled from "styled-components"
+import styled from "styled-components";
 
 const Root = styled.div`
 margin: 2em 0 4em;
@@ -13,23 +13,7 @@ line-height: var(--font-micro-line-height);
 font-weight: 500;
 text-transform: uppercase;
 letter-spacing: 0.5px;
-margin: 2rem 0;
-`
-
-const BrowseMore = styled.div`
-margin-top: 1rem;
-text-align: right;
-
-  a {
-  display: inline-block;
-  padding: 0.5rem 0;
-  color: inherit;
-  text-decoration: none;
-
-    @media (hover: hover) {
-    &:hover {
-    text-decoration: underline;
-    }}}
+margin: 5rem 0;
 `
 
 const Grid = styled.ul`
@@ -41,13 +25,12 @@ grid-template-columns: 1fr;
 grid-gap: 2em;
 
   @media (min-width: 768px) {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   }
 
-  @media (min-width: 1024px) {
-  grid-template-columns: 1fr 1fr 1fr;
+  @media (min-width: 900px) {
+  grid-template-columns: 1fr 1fr;
   }
-  
 `
 
 function ProjectPreviewGrid(props) {
@@ -62,19 +45,9 @@ function ProjectPreviewGrid(props) {
             </li>
           ))}
       </Grid>
-      {props.browseMoreHref && (
-        <BrowseMore>
-          <Link to={props.browseMoreHref}>Browse more</Link>
-        </BrowseMore>
-      )}
     </Root>
   );
 }
 
-ProjectPreviewGrid.defaultProps = {
-  title: "",
-  nodes: [],
-  browseMoreHref: ""
-};
 
 export default ProjectPreviewGrid;

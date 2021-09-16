@@ -3,10 +3,10 @@
 
   --color-black: #ffffff;
   --color-dark-gray: #000000;
-  --color-gray: #4F3F37;
-  --color-light-gray: #4F3F37;
-  --color-very-light-gray: #4F3F37;
-  --color-white: #4F3F37;
+  --color-gray: rgb(64, 58, 58);
+  --color-light-gray: rgb(64, 58, 58);
+  --color-very-light-gray: rgb(64, 58, 58);
+  --color-white: rgb(64, 58, 58);
   --color-accent: #ffffff;
 
   /* Typography */

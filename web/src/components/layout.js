@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./header";
-import styled from "styled-components"
+import styled from "styled-components";
 import "../styles/layout.css";
 
 const SiteInfoCompanys = styled.div`
@@ -25,7 +25,7 @@ border-top: 1px solid var(--color-very-light-gray);
 `
 
 const BottomPageWrapper = styled.div`
-box-sizing:border-box;
+box-sizing: border-box;
 max-width: 1440px;
 padding: 4.5em 1.5em 1.5em;
 margin: 0 auto;
@@ -33,8 +33,6 @@ margin: 0 auto;
   @media (--media-min-small) {
   padding: 6em 2em 2em;
   }
-
-
 `
 
 const Content = styled.div`
@@ -48,7 +46,7 @@ min-height: calc(100% - 73px - 120px);
 
 
 
-const Layout = ({ children, onHideNav, onShowNav, showNav, siteTitle, categories }) => (
+const Layout = ({ children, onHideNav, onShowNav, showNav, siteTitle, categories, markedCategory }) => (
   <>
     <Header 
       siteTitle={siteTitle} 
@@ -56,6 +54,7 @@ const Layout = ({ children, onHideNav, onShowNav, showNav, siteTitle, categories
       onShowNav={onShowNav} 
       showNav={showNav} 
       categories={categories}
+      markedCategory={markedCategory}
       />
     <Content>{children}</Content>
     <BottomPage>

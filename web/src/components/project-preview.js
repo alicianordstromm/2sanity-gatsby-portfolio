@@ -3,7 +3,7 @@ import React from "react";
 import { cn, buildImageObj } from "../lib/helpers";
 import { imageUrlFor } from "../lib/image-url";
 import BlockText from "./block-text";
-import styled from "styled-components"
+import styled from "styled-components";
 import { responsiveTitle3 } from "./typography.module.css";
 
 const ExcerptLink = styled(Link)`
@@ -15,7 +15,7 @@ text-decoration: none;
 const ImageTitle = styled.div`
 position: relative;
 padding-bottom: 66.666%;
-background: #4F3F37;
+background: rgb(64, 58, 58);
 
   img {
   position: absolute;

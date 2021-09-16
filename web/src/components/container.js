@@ -1,16 +1,12 @@
 import React from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 
 const PaddingLeftAndRightOfBothGrids = styled.div`
 box-sizing: border-box;
-max-width: 1440px;
-padding: 3em;
-padding-top: 7em;
+min-width: 200px;
+padding: 4em;
+padding-top: 8em;
 margin: 0 auto;
-
-  @media (--media-min-small) {
-  padding: 2em;
-  }
 `
 
 const Container = ({ children }) => {

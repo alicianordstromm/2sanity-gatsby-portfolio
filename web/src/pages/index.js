@@ -25,12 +25,12 @@ export const query = graphql`
       keywords
     }
     projects: allSanitySampleProject(
-      limit: 3
       sort: { fields: [publishedAt], order: DESC }
       filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
     ) {
       edges {
         node {
+          StartPage
           id
           mainImage {
             crop {
@@ -82,13 +82,10 @@ const IndexPage = props => {
         .filter(filterOutDocsWithoutSlugs)
         .filter(filterOutDocsPublishedInTheFuture)
     : [];
+    const result = projectNodes.filter(project => project.StartPage === true);
+    
 
-  if (!site) {
-    throw new Error(
-      'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
-    );
-  }
-
+console.log(result)
   return (
     <Layout categories={data.categories.nodes}>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
@@ -97,8 +94,7 @@ const IndexPage = props => {
         {projectNodes && (
           <ProjectPreviewGrid
             title="Latest projects"
-            nodes={projectNodes}
-            browseMoreHref="/archive/"
+            nodes={result}
           />
         )}
       </Container>

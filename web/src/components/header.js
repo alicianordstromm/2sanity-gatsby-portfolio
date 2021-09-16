@@ -1,9 +1,9 @@
 import { Link } from "gatsby";
 import React, { useState } from 'react';
 import Icon from "./icon";
-import styled from "styled-components"
+import styled from "styled-components";
 import { cn } from "../lib/helpers";
-
+import { useStaticQuery, graphql } from "gatsby"
 
 const RootHeader = styled.div`
 position: fixed;
@@ -11,17 +11,24 @@ z-index: 100;
 width:100%;
 `
 
+const MarkedCategory = styled(Link)`
+text-transform: uppercase;
+`
+
 const Wrapper = styled.div`
 box-sizing: border-box;
 margin: 0 auto;
 width: 100%;
-padding-left: 2em;
-padding-right: 2em;
-padding-top: 1.5em;
-padding-bottom: 4em;
-max-width: 1440px;
+padding-left: 4em;
+padding-right: 4em;
+padding-top: 3em;
+padding-bottom: 0em;
+max-width: 4000px;
 display: flex;
 justify-content: space-between;
+background: rgb(64, 58, 58, 0.5);
+box-shadow: 0px 20px 40px 40px rgb(64, 58, 58, 0.5);
+
 
   @media (--media-min-small) {
   padding: 1.5em 1.5em;
@@ -34,7 +41,7 @@ flex: 1;
 
   a {
   display: inline-block;
-  padding: 0.5em;
+  padding: 0;
   color: inherit;
   font-size: 20pt;
   text-decoration: none;
@@ -53,7 +60,7 @@ font-size: 25px;
 border: none;
 background: none;
 margin: 0;
-padding: 0.5em;
+padding: 0;
 color: inherit;
 
   svg {
@@ -71,13 +78,13 @@ const ListHeader = styled.nav`
   display: none;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
   display: block;
   
     ul {
     margin: 0;
-    padding-top: 1.5em;
-    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-right: 0;
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
@@ -107,9 +114,9 @@ const ListHamburger = styled.nav`
   position: absolute;
   background: var(--color-white);
   color: var(--color-black);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
   right: 0;
-  top: 4.3rem;
+  top: 5rem;
   width: 170px;
   display: flex;
   
@@ -134,9 +141,24 @@ const ListHamburger = styled.nav`
     }
   }
 `
+  
+const Header = ({ onHideNav, onShowNav, showNav, siteTitle, markedCategory }) => {
+const [showMenu, setShowMenu] = useState(false)
+const data = useStaticQuery(graphql`
+  query HeaderQuery {
+    allSanityCategory {
+      nodes{
+        title
+        id
+      }
+    }
+  }
+`)
 
-const Header = ({ onHideNav, onShowNav, showNav, siteTitle, categories }) => {
-  const [showMenu, setShowMenu] = useState(false)
+console.log(markedCategory)
+
+const categories = data.allSanityCategory.nodes
+console.log(categories)
   return (
     <RootHeader>
       <Wrapper>
@@ -147,21 +169,21 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle, categories }) => {
         <MenuButton onClick={() => setShowMenu(!showMenu)}>
           <Icon symbol="hamburger" />
         </MenuButton> 
-        <ListHeader>
+         <ListHeader> 
             <ul>
             {categories.map(c => (
               <li>
-                < Link to="/archive/">{c.title}</Link>
+                {markedCategory === c.id ? <MarkedCategory>{c.title}</MarkedCategory> : <Link to={`/${c.title}/`}>{c.title}</Link>}
               </li>
             ))}
             </ul>
-        </ListHeader>
+        </ListHeader> 
         {showMenu && 
          (<ListHamburger>
             <ul>
             {categories.map(c => (
               <li>
-                < Link to="/archive/">{c.title}</Link>
+                {markedCategory === c.id ? <MarkedCategory>{c.title}</MarkedCategory> : <Link to={`/${c.title}/`}>{c.title}</Link>}
               </li>
             ))}
             </ul>

@@ -53,6 +53,11 @@ export default {
       type: 'figure'
     },
     {
+      name: 'StartPage',
+      title: 'Start page',
+      type: 'boolean'
+    },
+    {
       name: 'categories',
       title: 'Categories',
       type: 'array',
